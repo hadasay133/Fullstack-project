@@ -1,0 +1,34 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;"> כל ההצעות המתאימות לבקשות</h1>
+    <div *ngIf="requests && requests.length > 0; else noContent;">
+        <select class="mat-input-form" style="height: 28px;" (change)="selectRequest($event.target.value)">
+
+            <option [value]="c.id" *ngFor="let c of requests">
+                {{'מ'+c.resourse_city + ' ' +c.resourse + ' - ל'+ c.destination_city+ ' ' +c.destination+ ', בתאריך '+ (c.date_time|date:"dd/MM/yyyy HH:mm " )}}
+            </option>
+        </select>
+        <div class="cont-wrap">
+            <div class="active-wrap">
+                <div class="cont-data" *ngFor="let r of offers">
+                    <h3>{{r.driver.username + ' | ' +r.driver.phone }}</h3>
+                    <h4 class="strong"> {{'מ'+r.resourse_city + ' - ' +r.resourse}}</h4>
+                    <h4 class="strong"> {{'ל'+ r.destination_city+ ' - ' +r.destination}}</h4>
+                    <h4>{{'בתאריך '+ (r.date_time|date:"dd/MM/yyyy " )}}</h4>
+                    <h4>{{ ' בשעה '+ (r.date_time|date:" HH:mm " )}}</h4>
+
+                    <h4><strong>{{r.seats}}</strong> מקומות </h4>
+                    <h4> {{r.numSeats}} נוסעים שהצטרפו </h4>
+                    <h4>מחיר <strong>{{r.price}}</strong> ש"ח </h4>
+                    <h4>{{r.remarks}}</h4>
+                    <button *ngIf="!r.is_emailed" class="btn-color btn-color-small "
+                    (click)="sendEmailWithOffer(r.id);">שלח בקשה</button>
+                <h4 class="send-email" *ngIf="r.is_emailed"> נשלחה בקשה למייל</h4>
+                </div>
+            </div>s
+        </div>
+    </div>
+    <ng-template #noContent>
+        <br>
+        <h2>לא נמצאו בקשות</h2>
+    </ng-template>
+</div>

@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SafeDrivingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="offers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_person" Type="int" Nullable="false" />
+          <Property Name="resourse_city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="resourse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination_city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="seats" Type="int" Nullable="false" />
+          <Property Name="date_time" Type="datetime" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="email_requests" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="persons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tz" Type="int" Nullable="false" />
+          <Property Name="adress" Type="varchar" MaxLength="30" />
+          <Property Name="mail" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="12" />
+          <Property Name="inqure" Type="varchar" MaxLength="50" />
+          <Property Name="ok" Type="bit" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="is_manager" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_person" Type="int" Nullable="false" />
+          <Property Name="resourse_city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="resourse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination_city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="seats" Type="int" Nullable="false" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="date_time" Type="datetime" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="ignore_offers" Type="varchar" MaxLength="300" />
+          <Property Name="email_offers" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="travels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_offer" Type="int" Nullable="false" />
+          <Property Name="id_request" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_personOffers">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="offers" Type="Self.offers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="offers">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRequests">
+          <End Role="persons" Type="Self.persons" Multiplicity="1" />
+          <End Role="requests" Type="Self.requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="requests">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_travelsOffers">
+          <End Role="offers" Type="Self.offers" Multiplicity="1" />
+          <End Role="travels" Type="Self.travels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="offers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="travels">
+              <PropertyRef Name="id_offer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_travelsRequests">
+          <End Role="requests" Type="Self.requests" Multiplicity="1" />
+          <End Role="travels" Type="Self.travels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="travels">
+              <PropertyRef Name="id_request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SafeDrivingModelStoreContainer">
+          <EntitySet Name="offers" EntityType="Self.offers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="persons" EntityType="Self.persons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requests" EntityType="Self.requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="travels" EntityType="Self.travels" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_personOffers" Association="Self.FK_personOffers">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="offers" EntitySet="offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRequests" Association="Self.FK_personRequests">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="requests" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_travelsOffers" Association="Self.FK_travelsOffers">
+            <End Role="offers" EntitySet="offers" />
+            <End Role="travels" EntitySet="travels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_travelsRequests" Association="Self.FK_travelsRequests">
+            <End Role="requests" EntitySet="requests" />
+            <End Role="travels" EntitySet="travels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SafeDrivingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SafeDrivingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="offers" EntityType="SafeDrivingModel.offers" />
+          <EntitySet Name="persons" EntityType="SafeDrivingModel.persons" />
+          <EntitySet Name="requests" EntityType="SafeDrivingModel.requests" />
+          <EntitySet Name="travels" EntityType="SafeDrivingModel.travels" />
+          <AssociationSet Name="FK_personOffers" Association="SafeDrivingModel.FK_personOffers">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="offers" EntitySet="offers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_travelsOffers" Association="SafeDrivingModel.FK_travelsOffers">
+            <End Role="offers" EntitySet="offers" />
+            <End Role="travels" EntitySet="travels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personRequests" Association="SafeDrivingModel.FK_personRequests">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="requests" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_travelsRequests" Association="SafeDrivingModel.FK_travelsRequests">
+            <End Role="requests" EntitySet="requests" />
+            <End Role="travels" EntitySet="travels" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="offers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_person" Type="Int32" Nullable="false" />
+          <Property Name="resourse_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="resourse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="destination_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="seats" Type="Int32" Nullable="false" />
+          <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="email_requests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="persons" Relationship="SafeDrivingModel.FK_personOffers" FromRole="offers" ToRole="persons" />
+          <NavigationProperty Name="travels" Relationship="SafeDrivingModel.FK_travelsOffers" FromRole="offers" ToRole="travels" />
+        </EntityType>
+        <EntityType Name="persons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tz" Type="Int32" Nullable="false" />
+          <Property Name="adress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="inqure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ok" Type="Boolean" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="is_manager" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="offers" Relationship="SafeDrivingModel.FK_personOffers" FromRole="persons" ToRole="offers" />
+          <NavigationProperty Name="requests" Relationship="SafeDrivingModel.FK_personRequests" FromRole="persons" ToRole="requests" />
+        </EntityType>
+        <EntityType Name="requests">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_person" Type="Int32" Nullable="false" />
+          <Property Name="resourse_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="resourse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="destination_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="seats" Type="Int32" Nullable="false" />
+          <Property Name="remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="ignore_offers" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="email_offers" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="persons" Relationship="SafeDrivingModel.FK_personRequests" FromRole="requests" ToRole="persons" />
+          <NavigationProperty Name="travels" Relationship="SafeDrivingModel.FK_travelsRequests" FromRole="requests" ToRole="travels" />
+        </EntityType>
+        <EntityType Name="travels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_offer" Type="Int32" Nullable="false" />
+          <Property Name="id_request" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="offers" Relationship="SafeDrivingModel.FK_travelsOffers" FromRole="travels" ToRole="offers" />
+          <NavigationProperty Name="requests" Relationship="SafeDrivingModel.FK_travelsRequests" FromRole="travels" ToRole="requests" />
+        </EntityType>
+        <Association Name="FK_personOffers">
+          <End Type="SafeDrivingModel.persons" Role="persons" Multiplicity="1" />
+          <End Type="SafeDrivingModel.offers" Role="offers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="offers">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_travelsOffers">
+          <End Type="SafeDrivingModel.offers" Role="offers" Multiplicity="1" />
+          <End Type="SafeDrivingModel.travels" Role="travels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="offers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="travels">
+              <PropertyRef Name="id_offer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personRequests">
+          <End Type="SafeDrivingModel.persons" Role="persons" Multiplicity="1" />
+          <End Type="SafeDrivingModel.requests" Role="requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="requests">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_travelsRequests">
+          <End Type="SafeDrivingModel.requests" Role="requests" Multiplicity="1" />
+          <End Type="SafeDrivingModel.travels" Role="travels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requests">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="travels">
+              <PropertyRef Name="id_request" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SafeDrivingModelStoreContainer" CdmEntityContainer="SafeDrivingEntities">
+          <EntitySetMapping Name="offers">
+            <EntityTypeMapping TypeName="SafeDrivingModel.offers">
+              <MappingFragment StoreEntitySet="offers">
+                <ScalarProperty Name="email_requests" ColumnName="email_requests" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="seats" ColumnName="seats" />
+                <ScalarProperty Name="destination_city" ColumnName="destination_city" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="resourse" ColumnName="resourse" />
+                <ScalarProperty Name="resourse_city" ColumnName="resourse_city" />
+                <ScalarProperty Name="id_person" ColumnName="id_person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="persons">
+            <EntityTypeMapping TypeName="SafeDrivingModel.persons">
+              <MappingFragment StoreEntitySet="persons">
+                <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="ok" ColumnName="ok" />
+                <ScalarProperty Name="inqure" ColumnName="inqure" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="tz" ColumnName="tz" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requests">
+            <EntityTypeMapping TypeName="SafeDrivingModel.requests">
+              <MappingFragment StoreEntitySet="requests">
+                <ScalarProperty Name="email_offers" ColumnName="email_offers" />
+                <ScalarProperty Name="ignore_offers" ColumnName="ignore_offers" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="seats" ColumnName="seats" />
+                <ScalarProperty Name="destination_city" ColumnName="destination_city" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="resourse" ColumnName="resourse" />
+                <ScalarProperty Name="resourse_city" ColumnName="resourse_city" />
+                <ScalarProperty Name="id_person" ColumnName="id_person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="travels">
+            <EntityTypeMapping TypeName="SafeDrivingModel.travels">
+              <MappingFragment StoreEntitySet="travels">
+                <ScalarProperty Name="id_request" ColumnName="id_request" />
+                <ScalarProperty Name="id_offer" ColumnName="id_offer" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

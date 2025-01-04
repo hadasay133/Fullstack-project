@@ -1,0 +1,61 @@
+<div class="form-wrapper-overlay"></div>
+<form class="form-wrapper form-wrapper-s" style="    margin: 20px auto;" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+    <div class="sign-up">
+        <h1>עדכון פרטים</h1>
+        <div class="row-wrapper">
+            <mat-label>שם משתמש</mat-label>
+            <input class="mat-input-form" type="text" formControlName="username" required />
+        </div>
+        <div class="row-wrapper">
+
+            <mat-label>תעודת זהות</mat-label>
+            <input class="mat-input-form" type="number" formControlName="tz" required
+                aria-placeholder="תעודת זהות"   pattern="[0-9]{9}" />
+                <p *ngIf="myForm.get('tz').errors?.pattern" class="mat-error"> ת"ז לא תקינה</p>
+                <br>
+        </div>
+        <div class="row-wrapper">
+            <mat-label>כתובת</mat-label>
+            <input class="mat-input-form" type="text" formControlName="adress" required aria-placeholder="כתובת" /><br>
+        </div>
+        <div class="row-wrapper">
+            <mat-label>מייל</mat-label>
+
+            <input class="mat-input-form" type="email" formControlName="mail" required aria-placeholder="מייל"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+            <p *ngIf="myForm.get('mail').errors?.pattern"  class="mat-error"> מייל לא תקין</p><br>
+        </div>
+        <div class="row-wrapper">
+            <mat-label>פלאפון</mat-label>
+           
+            <input class="mat-input-form" type="tel" formControlName="phone" required aria-placeholder="פלאפון"
+            pattern="[0][0-9]{9}" />
+            <p *ngIf="myForm.get('phone').errors?.pattern" class="mat-error"> פלאפון לא תקין</p>
+        </div>
+        <div class="row-wrapper">
+            <mat-label>הערה</mat-label>
+
+            <input class="mat-input-form" style="direction: rtl;" type="text" formControlName="inqure" required
+                aria-placeholder="enter inqure" /><br>
+        </div>
+        <div class="row-wrapper">
+            <mat-label>סיסמא</mat-label>
+
+            <input class="mat-input-form" type="password" formControlName="password"
+                aria-placeholder="סיסמא" />
+            <p *ngIf="myForm.get('password').errors?.pattern" class="mat-error"> סיסמא מינימום 8 תוים</p>
+        </div>
+    </div>
+    <!-- <p *ngIf="!myForm.valid&&myForm.dirty" class="mat-error-g"> חסרים פרטים בטופס</p> -->
+
+    <div class="buttom">
+        <br>
+
+        <button class="btn-color" mat-flat-button color="warn" type="submit"
+            [disabled]="!myForm.valid">עדכן</button><br>
+        <!-- <button mat-flat-button color="warn" (click)="reset()"> RESET</button> -->
+    </div>
+
+ <br>
+
+</form>

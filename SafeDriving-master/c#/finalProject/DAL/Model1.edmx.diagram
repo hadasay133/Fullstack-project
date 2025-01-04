@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="12f9320f95a04ce2abad784ee2af0cc8" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="SafeDrivingModel.offers" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="SafeDrivingModel.persons" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="SafeDrivingModel.requests" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="SafeDrivingModel.travels" Width="1.5" PointX="5.25" PointY="4.375" />
+        <AssociationConnector Association="SafeDrivingModel.FK_personOffers" />
+        <AssociationConnector Association="SafeDrivingModel.FK_travelsOffers" />
+        <AssociationConnector Association="SafeDrivingModel.FK_personRequests" />
+        <AssociationConnector Association="SafeDrivingModel.FK_travelsRequests" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

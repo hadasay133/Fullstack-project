@@ -1,0 +1,40 @@
+<div class="form-wrapper-large">
+    <h1> הסטוריית הבקשות שלי</h1>
+
+    <table class="table table-striped"  *ngIf="requests && requests.length > 0; else noContent">
+        <thead>
+            <tr>
+                <th>מקור</th>
+                <th>יעד</th>
+                <th>תאריך ושעה</th>
+                <th>מספר מקומות</th>
+                <th>נהג</th>
+                <th> מקור ויעד נסיעה</th>
+                <th> מחיר</th>
+                <th>תאריך ושעה נסיעה</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let req of requests">
+
+
+                <td>{{req.resourse}} - {{req.resourse_city}}</td>
+                <td> {{req.destination}} - {{req.destination_city}}</td>
+
+                <td> {{req.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                <td> {{req.seats}}</td>
+                <td> {{req.driver != null? (req.driver.username + ', ' + req.driver.phone) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.resourse + ' - ' + req.offer.destination) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.price) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.date_time | date:"dd/MM/yyyy HH:mm") : ''}} </td>
+             
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noContent>
+        <h2>  לא נמצאו בקשות עם נסיעות</h2>
+    </ng-template>
+</div>

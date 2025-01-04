@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      
+        <span class="menu-spacer"></span>
+        <div>
+            <a mat-button routerLink="privateArea"  *ngIf="isLogin && name" > הי {{name}} </a>
+            <a mat-button routerLink="about" routerLinkActive="active_link"> ראשי </a>
+            <a mat-button routerLink="updateDetails" *ngIf="isLogin && name" routerLinkActive="active_link"> עדכון פרטים </a>
+
+            <a mat-button routerLink="signInForm" *ngIf="isLogin ==false" routerLinkActive="active_link"> התחברות </a>
+            <a mat-button routerLink="signUpForm" *ngIf="isLogin ==false" routerLinkActive="active_link"> הרשמה </a>
+    
+         
+            <a mat-button class="logout" (click)="logout();" *ngIf="isLogin">
+                <mat-icon>login</mat-icon>
+            </a>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

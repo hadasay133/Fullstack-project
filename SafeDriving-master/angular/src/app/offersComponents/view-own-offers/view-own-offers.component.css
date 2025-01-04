@@ -1,0 +1,22 @@
+.table th.th2 {
+    background-color: white;
+    color: #2c366e;
+    font-size: 12px;
+    line-height: 18px;
+    height: 20px;
+    font-weight: bold;
+}
+
+.table td.td2 {
+    background-color: rgba(255, 255, 255, 0.579);
+    color: #2c366e;
+    font-size: 12px;
+    line-height: 18px;
+    height: 20px;
+}
+
+.table td.td1 {
+    background: #f9d71b;
+    margin-top: 2px;
+    border-top: 2px solid;
+}

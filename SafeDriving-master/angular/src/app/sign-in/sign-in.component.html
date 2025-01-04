@@ -1,0 +1,27 @@
+  <div class="form-wrapper-overlay"></div>
+  <form class="form-wrapper form-wrapper-s"  style="    margin: 20px auto;"  [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  
+    <h1>התחברות</h1>
+
+    <div id="email">
+        <mat-label>מייל</mat-label> <br />
+        <input matInput type="text" value="" formControlName="email" required>
+        <mat-error *ngIf="myForm.get('email').errors?.required"> חובה להזין אימייל.</mat-error>
+    </div>
+
+    <div id="passport">
+        <mat-label>סיסמא</mat-label> <br />
+        <input matInput type="password" value="" formControlName="password" required>
+        <mat-error *ngIf="myForm.get('password').errors?.required"> חובה להזין סיסמא.</mat-error>
+    </div>
+   
+    <br>
+    <div class="footer-wrapper">
+        <button mat-flat-button class="btn-color" type="submit" [disabled]="!myForm.valid">כניסה</button>
+    </div>
+
+
+    <p *ngIf="!myForm.valid&&myForm.dirty">חסר פרטים בטופס</p>
+<br>
+    <a mat-button routerLink="/signUpForm" > משתמש חדש? לחץ כאן </a>
+</form>

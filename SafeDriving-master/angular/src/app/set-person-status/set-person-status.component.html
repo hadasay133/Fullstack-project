@@ -1,0 +1,54 @@
+<div class="form-wrapper-large">
+    <h1> פרטי משתמשים</h1>
+
+
+    <table class="table table-striped" *ngIf="person && person.length > 0; else noContent">
+        <thead>
+            <tr>
+                <th>שם משתמש</th>
+                <th>מייל</th>
+                <th>פלאפון</th>
+                <th>כתובת</th>
+                <th> תז</th>
+                <th> סטטוס</th>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let per of person">
+                <tr>
+
+                    <td>{{per.username}}</td>
+                    <td> {{per.mail}}</td>
+                    <td> {{per.phone}}</td>
+                    <td> {{per.adress}}</td>
+                    <td> {{per.tz}}</td>
+                    <td>
+                        <mat-icon *ngIf="per.ok" class="icon icon-color" (click)="updatePerson(per,false);">check
+                        </mat-icon>
+                        <mat-icon *ngIf="!per.ok" class="icon" (click)="updatePerson(per,true);">check</mat-icon>
+                    </td>
+                </tr>
+
+            </ng-container>
+
+
+
+
+            <!-- <tr *ngFor="let per of perers">
+
+                <td>{{per.resourse}} - {{per.resourse_city}}</td>
+                <td> {{per.destination}} - {{per.destination_city}}</td>
+
+                <td> {{per.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                <td> {{per.seats}}</td>
+                <td> {{per.price}}</td>
+
+
+
+            </tr> -->
+        </tbody>
+    </table>
+
+    <ng-template #noContent>
+        <h2> לא נמצאו משתמשים </h2>
+    </ng-template>
+</div>

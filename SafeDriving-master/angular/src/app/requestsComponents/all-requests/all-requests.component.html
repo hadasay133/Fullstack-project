@@ -1,0 +1,40 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;"> כל הבקשות הפעילות</h1>
+    <div *ngIf="requestSource && requestSource.length > 0; else noContent;">
+        <div class="filter">
+            <label>תאריך</label>
+            <input class="mat-input-form" [ngModel]="dateFilter|date:'yyyy-MM-dd'"
+            
+            (change)="dateFilter = $event.target.value" type="date" placeholder="תאריך">
+            <label>מקור</label>
+            <select class="mat-input-form"  [ngModel]="selectedSourceCity|date:'yyyy-MM-dd'" style="height: 34px;">
+                <option [value]="c" *ngFor="let c of lCity"> {{c}}</option>
+            </select>
+            <label>יעד</label>
+            <select class="mat-input-form"  [(ngModel)]="selectedDestCity" style="height: 34px;">
+                <option [value]="c" *ngFor="let c of lCity"> {{c}}</option>
+            </select>
+            <button class="btn-color" (click)="filter();">סנן</button>
+            <button class="btn-color-no" (click)="clear();">בטל</button>
+        </div>
+        <div class="cont-wrap">
+            <div class="active-wrap">
+                <div class="cont-data" *ngFor="let r of requests">
+                    <h2>{{r.driver.username + ' | ' +r.driver.phone }}</h2>
+                    <h4 class="strong"> {{'מ'+r.resourse_city + ' - ' +r.resourse}}</h4>
+                    <h4 class="strong"> {{'ל'+ r.destination_city+ ' - ' +r.destination}}</h4>
+                    <h4>{{'בתאריך '+ (r.date_time|date:"dd/MM/yyyy " )}}</h4>
+                    <h4>{{ ' בשעה '+ (r.date_time|date:" HH:mm " )}}</h4>
+
+                    <h4><strong>{{r.seats}}</strong> מקומות </h4>
+                    <h4>{{r.remarks}}</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noContent>
+        <br>
+        <h2>לא נמצאו הצעות</h2>
+    </ng-template>
+</div>

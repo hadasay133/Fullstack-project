@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SafeDrivingModelStoreContainer" CdmEntityContainer="SafeDrivingEntities">
+    <EntitySetMapping Name="offers">
+      <EntityTypeMapping TypeName="SafeDrivingModel.offers">
+        <MappingFragment StoreEntitySet="offers">
+          <ScalarProperty Name="email_requests" ColumnName="email_requests" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="seats" ColumnName="seats" />
+          <ScalarProperty Name="destination_city" ColumnName="destination_city" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="resourse" ColumnName="resourse" />
+          <ScalarProperty Name="resourse_city" ColumnName="resourse_city" />
+          <ScalarProperty Name="id_person" ColumnName="id_person" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="persons">
+      <EntityTypeMapping TypeName="SafeDrivingModel.persons">
+        <MappingFragment StoreEntitySet="persons">
+          <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="ok" ColumnName="ok" />
+          <ScalarProperty Name="inqure" ColumnName="inqure" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="adress" ColumnName="adress" />
+          <ScalarProperty Name="tz" ColumnName="tz" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="requests">
+      <EntityTypeMapping TypeName="SafeDrivingModel.requests">
+        <MappingFragment StoreEntitySet="requests">
+          <ScalarProperty Name="email_offers" ColumnName="email_offers" />
+          <ScalarProperty Name="ignore_offers" ColumnName="ignore_offers" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="seats" ColumnName="seats" />
+          <ScalarProperty Name="destination_city" ColumnName="destination_city" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="resourse" ColumnName="resourse" />
+          <ScalarProperty Name="resourse_city" ColumnName="resourse_city" />
+          <ScalarProperty Name="id_person" ColumnName="id_person" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="travels">
+      <EntityTypeMapping TypeName="SafeDrivingModel.travels">
+        <MappingFragment StoreEntitySet="travels">
+          <ScalarProperty Name="id_request" ColumnName="id_request" />
+          <ScalarProperty Name="id_offer" ColumnName="id_offer" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

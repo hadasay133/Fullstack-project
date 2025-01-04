@@ -1,0 +1,90 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 200px;"> רשימת הנסיעות שלי</h1>
+
+    <h3> נסיעות  ללא בקשות</h3>
+    <!-- <mat-icon class="add-icon" routerLink="/privateArea/OffersForm">add_circle_outline</mat-icon> -->
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>מקור</th>
+                <th>יעד</th>
+                <th>תאריך ושעה</th>
+                <th>מספר מקומות</th>
+                <th>מחיר</th>
+                <th>הערות</th>
+                <th>פעולות</th>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let off of offers">
+
+                <td>{{off.resourse}} - {{off.resourse_city}}</td>
+                <td> {{off.destination}} - {{off.destination_city}}</td>
+                <td> {{off.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                <td> {{off.seats}}</td>
+                <td> {{off.price}}</td>
+                <td> {{off.remarks}}</td>
+                <td>
+                    <mat-icon class="icon" (click)="editOff(off.id);">edit</mat-icon>
+                    <mat-icon class="icon" (click)="deleteOff(off);">close</mat-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>נסיעות עם בקשות שצורפו</h3>
+    <!-- <mat-icon class="add-icon" routerLink="/privateArea/OffersForm">add_circle_outline</mat-icon> -->
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>מקור</th>
+                <th>יעד</th>
+                <th>תאריך ושעה</th>
+                <th>מספר מקומות</th>
+                <th>מחיר</th>
+                <th>הערות</th>
+                <th>פעולות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let off of offerssWithTravels">
+                <tr>
+
+                    <td class="td1">{{off.resourse}} - {{off.resourse_city}}</td>
+                    <td class="td1"> {{off.destination}} - {{off.destination_city}}</td>
+
+                    <td class="td1">  {{off.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                    <td class="td1"> {{off.seats}}</td>
+                    <td class="td1"> {{off.price}}</td>
+                    <td class="td1"> {{off.remarks}}</td>
+                    <td  class="td1">
+                         <mat-icon class="icon" (click)="removeOffTravel(off);">close</mat-icon>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="th2">שם נוסע </th>
+                    <th class="th2">פרטי נוסע</th>
+                    <th class="th2">מקור נוסע</th>
+                    <th class="th2">יעד נוסע</th>
+                    <th class="th2">תאריך ושעה</th>
+                    <th class="th2">מספר מקומות</th>
+                    <th class="th2">הערות</th>
+
+                </tr>
+                <tr *ngFor="let oR of off.requests">
+                    <td class="td2">{{oR.driver.username}}</td>
+                    <td class="td2">{{oR.driver.mail +' | '+ oR.driver.phone }}</td>
+                    <td class="td2">{{oR.resourse}} - {{oR.resourse_city}}</td>
+                    <td class="td2"> {{oR.destination}} - {{oR.destination_city}}</td>
+
+                    <td class="td2"> {{oR.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                    <td class="td2"> {{oR.seats}}</td>
+                    <td class="td2"> {{oR.remarks}}</td>
+                </tr>
+            </ng-container>
+
+        </tbody>
+    </table>
+</div>

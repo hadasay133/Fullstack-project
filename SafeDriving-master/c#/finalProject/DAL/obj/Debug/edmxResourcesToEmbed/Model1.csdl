@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SafeDrivingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SafeDrivingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="offers" EntityType="SafeDrivingModel.offers" />
+    <EntitySet Name="persons" EntityType="SafeDrivingModel.persons" />
+    <EntitySet Name="requests" EntityType="SafeDrivingModel.requests" />
+    <EntitySet Name="travels" EntityType="SafeDrivingModel.travels" />
+    <AssociationSet Name="FK_personOffers" Association="SafeDrivingModel.FK_personOffers">
+      <End Role="persons" EntitySet="persons" />
+      <End Role="offers" EntitySet="offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_travelsOffers" Association="SafeDrivingModel.FK_travelsOffers">
+      <End Role="offers" EntitySet="offers" />
+      <End Role="travels" EntitySet="travels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_personRequests" Association="SafeDrivingModel.FK_personRequests">
+      <End Role="persons" EntitySet="persons" />
+      <End Role="requests" EntitySet="requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_travelsRequests" Association="SafeDrivingModel.FK_travelsRequests">
+      <End Role="requests" EntitySet="requests" />
+      <End Role="travels" EntitySet="travels" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="offers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_person" Type="Int32" Nullable="false" />
+    <Property Name="resourse_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="resourse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="destination_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="seats" Type="Int32" Nullable="false" />
+    <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="email_requests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="persons" Relationship="SafeDrivingModel.FK_personOffers" FromRole="offers" ToRole="persons" />
+    <NavigationProperty Name="travels" Relationship="SafeDrivingModel.FK_travelsOffers" FromRole="offers" ToRole="travels" />
+  </EntityType>
+  <EntityType Name="persons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tz" Type="Int32" Nullable="false" />
+    <Property Name="adress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="mail" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="inqure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ok" Type="Boolean" Nullable="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="is_manager" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="offers" Relationship="SafeDrivingModel.FK_personOffers" FromRole="persons" ToRole="offers" />
+    <NavigationProperty Name="requests" Relationship="SafeDrivingModel.FK_personRequests" FromRole="persons" ToRole="requests" />
+  </EntityType>
+  <EntityType Name="requests">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_person" Type="Int32" Nullable="false" />
+    <Property Name="resourse_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="resourse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="destination_city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="seats" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="date_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="ignore_offers" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="email_offers" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="persons" Relationship="SafeDrivingModel.FK_personRequests" FromRole="requests" ToRole="persons" />
+    <NavigationProperty Name="travels" Relationship="SafeDrivingModel.FK_travelsRequests" FromRole="requests" ToRole="travels" />
+  </EntityType>
+  <EntityType Name="travels">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_offer" Type="Int32" Nullable="false" />
+    <Property Name="id_request" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="offers" Relationship="SafeDrivingModel.FK_travelsOffers" FromRole="travels" ToRole="offers" />
+    <NavigationProperty Name="requests" Relationship="SafeDrivingModel.FK_travelsRequests" FromRole="travels" ToRole="requests" />
+  </EntityType>
+  <Association Name="FK_personOffers">
+    <End Type="SafeDrivingModel.persons" Role="persons" Multiplicity="1" />
+    <End Type="SafeDrivingModel.offers" Role="offers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persons">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="offers">
+        <PropertyRef Name="id_person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_travelsOffers">
+    <End Type="SafeDrivingModel.offers" Role="offers" Multiplicity="1" />
+    <End Type="SafeDrivingModel.travels" Role="travels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="offers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="travels">
+        <PropertyRef Name="id_offer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_personRequests">
+    <End Type="SafeDrivingModel.persons" Role="persons" Multiplicity="1" />
+    <End Type="SafeDrivingModel.requests" Role="requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persons">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="requests">
+        <PropertyRef Name="id_person" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_travelsRequests">
+    <End Type="SafeDrivingModel.requests" Role="requests" Multiplicity="1" />
+    <End Type="SafeDrivingModel.travels" Role="travels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="requests">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="travels">
+        <PropertyRef Name="id_request" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

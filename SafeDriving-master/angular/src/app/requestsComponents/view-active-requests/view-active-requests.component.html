@@ -1,0 +1,94 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;"> רשימת בקשות מתאימות להצעה</h1>
+    <div *ngIf="offers && offers.length > 0; else noContent;">
+        <select class="mat-input-form" style="height: 28px;" [(ngModel)]="offerId" (change)="selectOffer($event.target.value)">
+
+            <option [value]="c.id" *ngFor="let c of offers">
+                {{'מ'+c.resourse_city + ' ' +c.resourse + ' - ל'+ c.destination_city+ ' ' +c.destination+ ', בתאריך '+ (c.date_time|date:"dd/MM/yyyy HH:mm " )}}
+            </option>
+        </select>
+        <h3 style="margin-top: 10px;" *ngIf="offerTravelsSeats != 999">מספר מקומות שנרשמו <strong>{{offerTravelsSeats}}
+                מתוך {{offerSeats}}</strong></h3>
+        <div class="cont-wrap" *ngIf="offerTravelsSeats != 999 && offerTravelsSeats!=offerSeats">
+
+
+            <div class="rel-wrap" *ngIf=" requests.length > 0; else noContentReqRel;">
+                <h2 class="title"> בקשות שהתקבלו ({{requests.length}})</h2>
+                <div class="cont-data" *ngFor="let r of requests">
+                    <h3>{{r.driver.username}}</h3>
+                    <h5 class="strong"> {{'מ'+r.resourse_city + ' ' +r.resourse}}</h5>
+                    <h5 class="strong"> {{'ל'+ r.destination_city+ ' ' +r.destination}}</h5>
+                    <h5>{{'בשעה '+ (r.date_time|date:" HH:mm " )}}</h5>
+                    <h5><strong>{{r.seats}}</strong> נוסעים </h5>
+                    <h5>{{r.remarks}}</h5>
+                </div>
+            </div>
+            <div class="active-wrap" *ngIf="activeAequests.length > 0; else noContentReqActive;">
+                <h2 class="title"> בקשות מתאימות ({{activeAequests.length}})</h2>
+                <div class="cont-data" *ngFor="let r of activeAequests">
+                    <h3>{{r.driver.username}}</h3>
+                    <h5 class="strong"> {{'מ'+r.resourse_city + ' ' +r.resourse}}</h5>
+                    <h5 class="strong"> {{'ל'+ r.destination_city+ ' ' +r.destination}}</h5>
+                    <h5>{{'בשעה '+ (r.date_time|date:" HH:mm " )}}</h5>
+                    <h5><strong>{{r.seats}}</strong> נוסעים </h5>
+                    <h5>{{r.remarks}}</h5>
+
+                    <button *ngIf="!r.is_emailed" class="btn-color btn-color-small "
+                        (click)="sendEmailWithOffer(r.id);">שלח הצעה</button>
+                    <h4 class="send-email" *ngIf="r.is_emailed">נשלחה הצעה למייל</h4>
+                    <h6 class="send-email-already" *ngIf="r.email_offers && r.email_offers!== '' &&
+                    r.email_offers!== offerId.toString()">*נשלחה הצעה מנהג אחר</h6>
+                
+                </div>
+            </div>
+            <div class="dis-wrap" *ngIf="disabledAequests.length > 0; else noContentReqDis;">
+                <h2 class="title"> בקשות שנדחו ({{disabledAequests.length}})</h2>
+                <div class="cont-data" *ngFor="let r of disabledAequests">
+                    <h3>{{r.driver.username}}</h3>
+                    <h5 class="strong"> {{'מ'+r.resourse_city + ' ' +r.resourse}}</h5>
+                    <h5 class="strong"> {{'ל'+ r.destination_city+ ' ' +r.destination}}</h5>
+                    <h5>{{'בשעה '+ (r.date_time|date:" HH:mm " )}}</h5>
+                    <h5><strong>{{r.seats}}</strong> נוסעים </h5>
+                    <h5>{{r.remarks}}</h5>
+                </div>
+            </div>
+            <ng-template #noContentReqRel>
+                <div class="rel-wrap">
+                    <h2 class="title"> בקשות שהתקבלו</h2>
+                    <h4>לא נמצאו בקשות שהתקבלו</h4>
+                </div>
+            </ng-template>
+            <ng-template #noContentReqActive>
+                <div class="active-wrap">
+                    <h2 class="title"> בקשות מתאימות</h2>
+                    <h4>לא נמצאו בקשות מתאימות</h4>
+                </div>
+            </ng-template>
+
+            <ng-template #noContentReqDis>
+                <div class="dis-wrap">
+                    <h2 class="title"> בקשות שנדחו</h2>
+                    <h4>לא נמצאו בקשות שנדחו</h4>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="cont-wrap" *ngIf="offerTravelsSeats==offerSeats">
+            <div class="rel-wrap" style="border:none;width:100%;" *ngIf=" requests.length > 0; else noContentReqRel;">
+                <h2 class="title"> הנסיעה התמלאה - {{requests.length}} בקשות</h2>
+                <div class="cont-data" *ngFor="let r of requests">
+                    <h3>{{r.driver.username}} - {{r.driver.phone}}</h3>
+                    <h5 class="strong"> {{'מ'+r.resourse_city + ' ' +r.resourse}}</h5>
+                    <h5 class="strong"> {{'ל'+ r.destination_city+ ' ' +r.destination}}</h5>
+                    <h5>{{'בשעה '+ (r.date_time|date:" HH:mm " )}}</h5>
+                    <h5><strong>{{r.seats}}</strong> נוסעים </h5>
+                    <h5>{{r.remarks}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noContent>
+        <br>
+        <h2>לא נמצאו הצעות</h2>
+    </ng-template>
+</div>

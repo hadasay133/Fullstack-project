@@ -1,0 +1,70 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 200px;"> רשימת הבקשות שלי</h1>
+
+    <h3>בקשות פתוחות</h3>
+    <!-- <mat-icon class="add-icon" routerLink="/privateArea/RequestsForm">add_circle_outline</mat-icon> -->
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>מקור</th>
+                <th>יעד</th>
+                <th>תאריך ושעה</th>
+                <th>מספר מקומות</th>
+                <th>פעולות</th>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let req of requests">
+
+                <td>{{req.resourse}} - {{req.resourse_city}}</td>
+                <td> {{req.destination}} - {{req.destination_city}}</td>
+                <td> {{req.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                <td> {{req.seats}}</td>
+
+                <td>
+                    <mat-icon class="icon" (click)="editReq(req.id);">edit</mat-icon>
+                    <mat-icon class="icon" (click)="deleteReq(req);">close</mat-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>בקשות שצורפו לנסיעה</h3>
+    <!-- <mat-icon class="add-icon" routerLink="/privateArea/RequestsForm">add_circle_outline</mat-icon> -->
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>מקור</th>
+                <th>יעד</th>
+                <th>תאריך ושעה</th>
+                <th>מספר מקומות</th>
+                <th>נהג</th>
+                <th> מקור ויעד נסיעה</th>
+                <th> מחיר</th>
+                <th>תאריך ושעה נסיעה</th>
+                <th>פעולות</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let req of requestsWithTravels">
+
+                <td>{{req.resourse}} - {{req.resourse_city}}</td>
+                <td> {{req.destination}} - {{req.destination_city}}</td>
+
+                <td> {{req.date_time | date:"dd/MM/yyyy HH:mm"}}</td>
+                <td> {{req.seats}}</td>
+                <td> {{req.driver != null? (req.driver.username + ', ' + req.driver.phone) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.resourse + ' - ' + req.offer.destination) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.price) : ''}} </td>
+                <td> {{req.offer != null? (req.offer.date_time | date:"dd/MM/yyyy HH:mm") : ''}} </td>
+                <td>
+                    <mat-icon class="icon" title="הסר נסיעה מהנהג" (click)="removeReqTravel(req);">remove</mat-icon>
+                    <mat-icon class="icon" title="מחק נסיעה" (click)="deleteReq(req);">close</mat-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
